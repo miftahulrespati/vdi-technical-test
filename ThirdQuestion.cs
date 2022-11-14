@@ -122,8 +122,6 @@ namespace VDITechnicalTest
                 float totalDisc = (basePrice * ((float)disc / 100)) + bonus;
                 float totalPrice = basePrice - totalDisc;
 
-                Console.WriteLine("MEMBER: " + memberType);
-                Console.WriteLine("POINT: " + memberPoint);
                 Console.WriteLine($"Total discount is {totalDisc}, and total price is {totalPrice}\n");
 
                 var db = new DBConn();
