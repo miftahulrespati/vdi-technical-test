@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace VDITechnicalTest
+namespace VDITechnicalTest.Question
 {
-    public class SecondQuestion
+    public class Anagram
     {
         public void DoOperation()
         {
@@ -18,6 +18,11 @@ namespace VDITechnicalTest
                 Console.Write("Input your first array of strings separated by comma(,): ");
                 input1 = Console.ReadLine() ?? "";
                 input1 = input1.Replace(" ", ""); // Remove all whitespaces even between characters
+                if (input1.Any(char.IsUpper))
+                {
+                    Console.WriteLine("Only lowercase characters are allowed");
+                    continue;
+                }
                 var arr1 = new List<string>(input1.Split(',').Select(s => s));
 
                 if (input1.Equals("quit"))
@@ -29,6 +34,11 @@ namespace VDITechnicalTest
                 Console.Write("Input your second array of strings separated by comma(,): ");
                 input2 = Console.ReadLine() ?? "";
                 input2 = input2.Replace(" ", ""); // Remove all whitespaces even between characters
+                if (input2.Any(char.IsUpper))
+                {
+                    Console.WriteLine("Only lowercase characters are allowed");
+                    continue;
+                }
                 var arr2 = new List<string>(input2.Split(',').Select(s => s));
 
                 if (input2.Equals("quit"))

@@ -1,11 +1,51 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.Configuration;
+using Microsoft.EntityFrameworkCore;
 
-namespace VDITechnicalTest
+namespace VDITechnicalTest.Question
 {
-    public class ThirdQuestion
+    public class TransactionHistory
     {
+        [Key]
+        public int ID { get; set; }
+        public string TransactionID { get; set; }
+        public float BasePrice { get; set; }
+        public string? MemberType { get; set; }
+        public int? MemberPoint { get; set; }
+        public float? Discount { get; set; }
+        public float TotalPrice { get; set; }
+
+        public void NewTransaction(
+            float basePrice,
+            string? memberType,
+            int? memberPoint,
+            float? totalDiscount,
+            float totalPrice
+        )
+        {
+            using VDITechnicalTestContext context = new VDITechnicalTestContext();
+            var runningID = context.TransactionHistories
+                .OrderByDescending(o => o.ID)
+                .Select(s => s.ID)
+                .FirstOrDefault();
+
+            TransactionHistory transaction = new TransactionHistory()
+            {
+                TransactionID = $"{DateTime.Now.ToString("yyyyMMdd")}_{runningID:0000}",
+                BasePrice = basePrice,
+                MemberType = memberType,
+                MemberPoint = memberPoint,
+                Discount = totalDiscount,
+                TotalPrice = totalPrice
+            };
+            Console.WriteLine("TransactionID: " + transaction.TransactionID);
+            context.TransactionHistories.Add(transaction);
+            context.SaveChanges();
+        }
+
         public void DoOperation()
         {
             Console.WriteLine("\nQuestion3");
@@ -124,10 +164,19 @@ namespace VDITechnicalTest
 
                 Console.WriteLine($"Total discount is {totalDisc}, and total price is {totalPrice}\n");
 
-                var db = new DBConn();
-                db.NewTransaction(basePrice.ToString(), memberType, memberPoint, totalDisc.ToString(), totalPrice.ToString());
+                NewTransaction(basePrice, memberType, memberPoint, totalDisc, totalPrice);
 
             } while (true);
+        }
+    }
+
+    public class VDITechnicalTestContext : DbContext
+    {
+        public DbSet<TransactionHistory> TransactionHistories { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["SqlConnIntegratedSecurity"].ConnectionString);
         }
     }
 }

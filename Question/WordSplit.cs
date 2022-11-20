@@ -1,8 +1,8 @@
 using System;
 
-namespace VDITechnicalTest
+namespace VDITechnicalTest.Question
 {
-    public class FirstQuestion
+    public class WordSplit
     {
         public void DoOperation()
         {

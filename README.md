@@ -7,12 +7,13 @@ A simple console app consisted of 3 questions.
 #### **Requirement:**
 
 * dotnet 6.0
-* SQL Server
+* SQL Server with a database named `VDI_Technical_Test`
 
 #### How to run:
 
 Inside the `vdi-technical-test` directory, open terminal then run command:
 
 ```
+dotnet ef database update
 dotnet run
 ```

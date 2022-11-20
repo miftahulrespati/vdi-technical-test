@@ -1,4 +1,5 @@
 ﻿using System;
+using VDITechnicalTest.Question;
 
 namespace VDITechnicalTest
 {
@@ -35,20 +36,17 @@ namespace VDITechnicalTest
                 switch (question)
                 {
                     case 1:
-                        var q1 = new FirstQuestion();
+                        var q1 = new WordSplit();
                         q1.DoOperation();
                         break;
 
                     case 2:
-                        var q2 = new SecondQuestion();
+                        var q2 = new Anagram();
                         q2.DoOperation();
                         break;
 
                     case 3:
-                        var db = new DBConn();
-                        db.CreateTable();
-
-                        var q3 = new ThirdQuestion();
+                        var q3 = new TransactionHistory();
                         q3.DoOperation();
                         break;
 
